@@ -94,8 +94,8 @@ module DataAccess =
         Cloud.deleteBlob binContainerName entryName
         Cloud.deleteBlob attachmentContainerName entryName
 
-    let loadLast num = 
-        entryContainerName |> Cloud.loadBlobs num
+    let loadLast num containerName = 
+        containerName |> Cloud.loadBlobs num
                            |> Seq.map (fun blob -> blob.Name |> parseGuid, blob |> Cloud.getBlobBytes)
                            |> Seq.map (fun (id, bytes) -> parseEntry id bytes)
 

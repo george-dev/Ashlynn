@@ -54,6 +54,7 @@
     <Compile Include="Utils.fs" />
     <Compile Include="AccountController.fs" />
     <Compile Include="AddController.fs" />
+    <Compile Include="RecycleBinController.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API\API.fsproj">

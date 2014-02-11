@@ -68,12 +68,13 @@ module Cloud =
     let loadBlobs count containerName = 
         let container = getContainer containerName
         if container.Exists() then
-            container.ListBlobs() |> Seq.map (fun blob -> getBlockBlobReference blob container)
-                                  |> Seq.sortBy (fun blob -> blob.FetchAttributes()
-                                                             let time = blob.Properties.LastModified
-                                                             if time.HasValue then time.Value else DateTimeOffset.MinValue)
-                                  |> Seq.toList
-                                  |> List.rev
-                                  |> Seq.truncate count
+            let blobs = container.ListBlobs() |> Seq.map (fun blob -> getBlockBlobReference blob container)
+                                              |> Seq.sortBy (fun blob -> blob.FetchAttributes()
+                                                                         let time = blob.Properties.LastModified
+                                                                         if time.HasValue then time.Value else DateTimeOffset.MinValue)
+                                              
+            match count with
+            | Some num -> blobs|> Seq.toList |> List.rev |> Seq.truncate num
+            | None -> blobs
         else
             Seq.empty

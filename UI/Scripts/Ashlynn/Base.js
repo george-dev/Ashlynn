@@ -1,4 +1,4 @@
-﻿/*global $ */
+﻿/*global $, ASHLYNN */
 
 var ASHLYNN = ASHLYNN || {};
 

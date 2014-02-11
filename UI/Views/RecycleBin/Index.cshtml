@@ -1,0 +1,84 @@
+﻿@using Object = Ashlynn.Object
+@using Ashlynn.UI
+@model IEnumerable<Object.Entry>
+@{
+    var list = (Model ?? Enumerable.Empty<Object.Entry>()).ToArray();
+}
+
+@{
+    ViewBag.Title = UIConfig.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div style="padding: 0.2em">
+        <a id="home-button" href="@Url.Action("Index", "Home")">Home</a>
+    </div>
+    <div>
+        @if (list.Any())
+        {
+            foreach (var entry in list)
+            {
+            <div data-ashlynn-id="@entry.ID.ToString()" class="_bin-div">
+                <div>
+                    @{
+                var date = entry.Date.ToString("dddd dd MMMM yyyy");
+                    }
+                    <label><strong>@entry.Name</strong></label>
+                </div>
+                <div>
+                    <label>@entry.Text</label>
+                </div>
+                <div>
+                    <label>Date: @date</label>
+                    @if (entry.Tags.Length > 0)
+                    {
+                        string comma = "";
+                        <label>Tags:</label>    
+                        foreach (var tag in entry.Tags.Split(',').Select(e => e.Trim()))
+                        {
+                        <text>@comma</text>
+                        <label><strong>@tag</strong></label>
+                            if (comma == "")
+                            {
+                                comma = ", ";
+                            }
+
+                        }
+                    }
+
+                    @if (entry.Attachments.Length > 0)
+                    {
+                        string comma = "";
+                        <label>Attachments:</label>    
+                        foreach (var attachment in entry.Attachments.Select(e => e.Name))
+                        {
+                        <text>@comma</text>
+                        <label>@attachment</label>
+                            if (comma == "")
+                            {
+                                comma = ", ";
+                            }
+                        }
+                    }
+                </div>
+                <div>
+                    <button type="button" class="_delete-button">Delete</button>
+                    <button type="button" class="_restore-button">Restore</button>
+                </div>
+                <hr />
+            </div>
+            }
+        }
+        else
+        {
+            <label>No Results</label>
+        }
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/Ashlynn/RecycleBin.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        ASHLYNN.recycleBin.ready();
+    });
+</script>

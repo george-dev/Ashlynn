@@ -23,7 +23,18 @@
                     <label>Date: @date</label>
                     @if (entry.Tags.Length > 0)
                     {
-                        <label>Tags: @entry.Tags</label>    
+                        string comma = "";
+                        <label>Tags:</label>    
+                        foreach (var tag in entry.Tags.Split(',').Select(e => e.Trim()))
+                         {
+                             <text>@comma</text>
+                             <label><strong>@tag</strong></label>
+                             if (comma == "")
+                             {
+                                 comma = ", ";
+                             }
+                        
+                         }
                     }
                 
                     @if (entry.Attachments.Length > 0)

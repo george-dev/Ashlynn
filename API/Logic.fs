@@ -77,8 +77,11 @@ module Logic =
         ()
 
     let delete id = 
-        id |> deleteEntry
+        id |> DataAccess.deleteEntry
 
     let loadLast num =
-        num |> DataAccess.loadLast |> Array.ofSeq
+        entryContainerName |> DataAccess.loadLast (Some num) |> Array.ofSeq
+
+    let loadBin () = 
+        binContainerName |> DataAccess.loadLast None |> Array.ofSeq
         

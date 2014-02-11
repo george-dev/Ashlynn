@@ -13,10 +13,7 @@ ASHLYNN.ajax = (function() {
 			contentType: "application/json; charset=utf-8",
 			url: options.url,
 			data: JSON.stringify(options.data),
-			success: options.success,
-			failure: function (e) {
-			    
-			}
+			success: options.success
 		};
 
 		$.ajax(postOptions);

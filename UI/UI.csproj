@@ -328,6 +328,7 @@
     <None Include="Properties\PublishProfiles\Penny on Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Penny.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\Ashlynn\RecycleBin.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
@@ -358,6 +359,7 @@
     <Content Include="Views\Home\EntryList.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Add\Index.cshtml" />
+    <Content Include="Views\RecycleBin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
