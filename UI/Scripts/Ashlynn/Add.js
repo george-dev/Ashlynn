@@ -18,6 +18,7 @@ ASHLYNN.add = (function () {
         removeButton: "._remove-button",
         saveButton: "#save-button",
         deleteAttachmentButton: "._delete-attachment-button",
+        undoDeleteAttachmentButton: "._undo-delete-attachment-button",
         cancelButton: "#cancel-button",
         div: "div",
         span: "span",
@@ -43,6 +44,7 @@ ASHLYNN.add = (function () {
     toggleDelete = function () {
         var $deleteButton = $(this),
             $span = $(this).closest(selector.span),
+            $undoButton = $(selector.undoDeleteAttachmentButton, $span),
             id = ASHLYNN.common.getData($span, "attachment-id"),
             $hiddenField = $(selector.hiddenField, $span),
             $link = $(selector.anchor, $span),
@@ -50,12 +52,14 @@ ASHLYNN.add = (function () {
         
         if ($hiddenField.length === 0) {
             $span.append('<input name="attachments" type="hidden" value="' + id + '" />');
-            $deleteButton.text("Delete");
+            $deleteButton.show();
+            $undoButton.hide();
             $link.show();
             $label.hide();
         } else {
             $hiddenField.remove();
-            $deleteButton.text("Undo");
+            $deleteButton.hide();
+            $undoButton.show();
             $link.hide();
             $label.show();
         }
@@ -72,6 +76,7 @@ ASHLYNN.add = (function () {
         $(selector.saveButton).button();
         $(selector.cancelButton).button();
         $(selector.deleteAttachmentButton).button().click(toggleDelete);
+        $(selector.undoDeleteAttachmentButton).button().click(toggleDelete).hide();
     };
 
     return {
