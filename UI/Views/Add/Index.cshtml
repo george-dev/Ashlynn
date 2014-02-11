@@ -42,7 +42,6 @@
                                 <a href="@Url.Action("DownloadFile", "Home", new { entryID = Model.ID.ToString(), fileID = attachment.ID.ToString() })">@attachment.Name</a>
                                 <label style="display: none">@attachment.Name</label>
                                 <button type="button" class="_delete-attachment-button">Delete</button>
-                                <button type="button" class="_undo-delete-attachment-button">Undo</button>
                                 <input name="attachments" type="hidden" value="@attachment.ID.ToString()" />
                             </span>
                         }
