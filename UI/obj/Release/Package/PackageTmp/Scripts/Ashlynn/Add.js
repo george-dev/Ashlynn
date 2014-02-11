@@ -50,12 +50,12 @@ ASHLYNN.add = (function () {
         
         if ($hiddenField.length === 0) {
             $span.append('<input name="attachments" type="hidden" value="' + id + '" />');
-            $deleteButton.text("Delete");
+            $deleteButton.button("option", "icons", { primary: "ui-icon-close" });
             $link.show();
             $label.hide();
         } else {
             $hiddenField.remove();
-            $deleteButton.text("Undo");
+            $deleteButton.button("option", "icons", { primary: "ui-icon-arrowreturnthick-1-w" });
             $link.hide();
             $label.show();
         }
@@ -71,7 +71,7 @@ ASHLYNN.add = (function () {
         $(selector.attachmentsDiv).on("click", selector.removeButton, removeFile);
         $(selector.saveButton).button();
         $(selector.cancelButton).button();
-        $(selector.deleteAttachmentButton).button().click(toggleDelete);
+        $(selector.deleteAttachmentButton).button({ text: false, icons: { primary: "ui-icon-close"} }).click(toggleDelete);
     };
 
     return {
