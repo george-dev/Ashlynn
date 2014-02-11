@@ -9,38 +9,39 @@
     {
         foreach (var entry in list)
         {
-        <div data-ashlynn-id="@entry.ID.ToString()" class="_search-result-item-div">
-            <div>
-                @{
-                    var date = entry.Date.ToString("dddd dd MMMM yyyy");
-                }
-                <label>@entry.Name</label>
-            </div>
-            <div>
-                <label>@entry.Text</label>
-            </div>
-            <div>
-                <label>Date: @date</label>
-                @if (entry.Tags.Length > 0)
-                {
-                <label>Tags: @entry.Tags</label>    
-                }
+            <div data-ashlynn-id="@entry.ID.ToString()" class="_search-result-item-div">
+                <div>
+                    @{
+                        var date = entry.Date.ToString("dddd dd MMMM yyyy");
+                    }
+                    <label><strong>@entry.Name</strong></label>
+                </div>
+                <div>
+                    <label>@entry.Text</label>
+                </div>
+                <div>
+                    <label>Date: @date</label>
+                    @if (entry.Tags.Length > 0)
+                    {
+                        <label>Tags: @entry.Tags</label>    
+                    }
                 
-                @if (entry.Attachments.Length > 0)
-                {
-                    <span>
-                        <label>Attachments:</label>
-                        @foreach (var attachment in entry.Attachments)
-                        {
-                            <a href="@Url.Action("DownloadFile", "Home", new { entryID = entry.ID.ToString(), fileID = attachment.ID.ToString() })">@attachment.Name</a>
-                        }</span>
-                }
+                    @if (entry.Attachments.Length > 0)
+                    {
+                        <span>
+                            <label>Attachments:</label>
+                            @foreach (var attachment in entry.Attachments)
+                            {
+                                <a href="@Url.Action("DownloadFile", "Home", new { entryID = entry.ID.ToString(), fileID = attachment.ID.ToString() })">@attachment.Name</a>
+                            }</span>
+                    }
+                </div>
+                <div>
+                    <button type="button" class="_delete-button">Delete</button>
+                    <a href="@Url.Action("Index", "Add", new { id = entry.ID.ToString()})" class="_edit-button">Edit</a>
+                </div>
             </div>
-            <div>
-                <button type="button" class="_delete-button">Delete</button>
-                <a href="@Url.Action("Index", "Add", new { id = entry.ID.ToString()})" class="_edit-button">Edit</a>
-            </div>
-        </div>
+        <hr/>
         }
     }
     else
