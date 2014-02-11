@@ -1,0 +1,27 @@
+﻿@using Ashlynn.UI
+@{
+    ViewBag.Title = UIConfig.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@UIConfig.Title</h2>
+<div>
+    <div>
+        <a id="add-entry-button" href="@Url.Action("Index", "Add")">Add Entry</a>
+        <button id="recent-button" type="button">Recent</button>
+    </div>
+    <div class="clearboth">
+        <input id="search-textbox" class="search-box" />
+    </div>
+    <div>
+         <button id="search-button" type="submit">Search</button>
+    </div>
+    <div id="search-result-div">
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/Ashlynn/Home.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        ASHLYNN.home.ready();
+    });
+</script>
