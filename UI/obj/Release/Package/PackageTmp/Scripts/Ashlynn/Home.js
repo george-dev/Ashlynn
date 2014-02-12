@@ -21,13 +21,14 @@ ASHLYNN.home = (function () {
         deleteButton: "._delete-button",
         editButton: "._edit-button",
         searchResultItemDiv: "._search-result-item-div",
-        recentButton: "#recent-button"
+        recentButton: "#recent-button",
+        binButton: "#bin-button"
     };
     
     url = {
         search: ASHLYNN.common.url("/Home/Search"),
         deleteEntry: ASHLYNN.common.url("/Home/MoveToBin"),
-        loadRecent: ASHLYNN.common.url("/Home/LoadRecent"),
+        loadRecent: ASHLYNN.common.url("/Home/LoadRecent")
     };
 
     showList = function (data) {
@@ -78,6 +79,7 @@ ASHLYNN.home = (function () {
         $(selector.deleteButton, $resultsDiv).button();
         $(selector.editButton, $resultsDiv).button();
         $(selector.recentButton).button().click(loadRecent);
+        $(selector.binButton).button();
     };
 
 	return {

@@ -24,6 +24,10 @@ type HomeController() =
         id |> parseGuid |> moveToBin
         EmptyResult() :> ActionResult
 
+    member x.DisplayText id = 
+        let entry = id |> parseGuid |> load
+        JsonResult(Data = entry.Text)
+
     [<HttpGet>]
     member x.DownloadFile entryID fileID = 
         let attachment = entryID |> parseGuid |> load |> getAttachment (fileID |> parseGuid)
