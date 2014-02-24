@@ -26,7 +26,7 @@ type HomeController() =
 
     member x.DisplayText id = 
         let entry = id |> parseGuid |> load
-        JsonResult(Data = entry.Text)
+        JsonResult(Data = HttpUtility.HtmlEncode(entry.Text))
 
     [<HttpGet>]
     member x.DownloadFile entryID fileID = 

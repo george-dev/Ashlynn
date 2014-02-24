@@ -10,6 +10,13 @@ open Ashlynn.Object
 open Ashlynn.Utils
 open Ashlynn.Logic
 
+type SaveModel () = 
+    member val ID = "" with get, set
+    member val Name = "" with get, set
+    member val Tags = "" with get, set
+    [<AllowHtml>] member val Details = "" with get, set
+    member val Attachments = (Array.empty<string> :> ICollection<string>) with get, set
+
 [<HandleError>]
 [<Authorize>]
 type AddController() =
@@ -26,25 +33,25 @@ type AddController() =
                     | id -> load id
         x.View(entry) :> ActionResult
 
-    member x.Save (id, name, tags, details, attachments: ICollection<string>) = 
-        let id = id |> parseGuid
+    member x.Save (saveModel: SaveModel) = 
+        let id = saveModel.ID |> parseGuid
         let newAttachments = x.Request.Files.AllKeys
                              |> Array.map (fun name -> x.Request.Files.[name])
                              |> Array.filter (fun file -> file <> null && file.ContentLength > 0)
                              |> Array.map getAttachment
 
-        let existingAttachments = if attachments <> null && id <> Guid.Empty then
-                                    attachments |> Seq.map parseGuid
-                                                |> Seq.filter (fun id -> id <> Guid.Empty)
-                                                |> Seq.map (fun id -> { Attachment.empty with ID = id } )
-                                                |> Seq.toArray
+        let existingAttachments = if saveModel.Attachments <> null && id <> Guid.Empty then
+                                    saveModel.Attachments |> Seq.map parseGuid
+                                                          |> Seq.filter (fun id -> id <> Guid.Empty)
+                                                          |> Seq.map (fun id -> { Attachment.empty with ID = id } )
+                                                          |> Seq.toArray
                                   else [| |]
 
         let entry = { ID = id
                       Date = DateTime.Now
-                      Name = name
-                      Tags = tags
-                      Text = details
+                      Name = saveModel.Name
+                      Tags = saveModel.Tags
+                      Text = saveModel.Details
                       Attachments = Array.concat [ newAttachments; existingAttachments] }
         entry |> save
         x.RedirectToAction("Index", "Home") :> ActionResult
